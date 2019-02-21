@@ -1,5 +1,4 @@
-#include<unistd.h>
-#include<stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h> 
@@ -13,81 +12,80 @@ struct msg_buffer
     char msg_text[1024]; 
 }; 
 
-int main(void)
+
+int main()
 {
     struct msg_buffer msg_rcv, msg_snd;
     key_t key;
-    int myQid;
-    char dataToBeRead[1024];
+    // key_t id;
+
+    int id;
+
+    char fileData[1024];
     
-    if((key= ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65))==-1)
+    key = ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65);
+
+    if(key == -1)
     {
         perror("ftok");
         exit(1);
     }
     
-    if((myQid = msgget(key, 0666 | IPC_CREAT))==-1) 
+    id = msgget(key, 0666 | IPC_CREAT);
+    if(id == -1) 
     {
         perror("msgget");
         exit(1);
     }
     
-    printf("SERVER ID %d\n", myQid);
     
     while(1) 
     {
-        msgrcv(myQid, &msg_rcv, sizeof(struct msg_buffer), 0, 0); 
+        msgrcv(id, &msg_rcv, sizeof(struct msg_buffer), 0, 0); 
 
-        printf("Got: %s\n", msg_rcv.msg_text);
-        char * pch = strtok (msg_rcv.msg_text," "); 
-        char fname[1024];
+        // printf("File name reveived: %s\n", msg_rcv.msg_text);
+        char *rctext = strtok (msg_rcv.msg_text," "); 
         
-        while(pch != NULL)
+        char filename[1024];
+        
+        while(rctext != NULL)
         {
-        
-            strcpy(fname,pch);
-            pch = strtok (NULL, " ");
+            strcpy(filename,rctext);
+            rctext = strtok (NULL, " ");
         }
 
-        size_t ln = strlen(fname) - 1;
+        size_t len = strlen(filename) - 1;
         
-        if (*fname && fname[ln] == '\n')  
-            fname[ln] = '\0';
+        if (*filename && filename[len] == '\n')  
+        {
+            filename[len] = '\0';
+        }
         
-        printf("FILE NAME: %s\n",fname);
         FILE *fp;
-        fp = fopen(fname,"r");
+        fp = fopen(filename, "r");
         
-        if ( fp == NULL )  //file not found
+        if (fp == NULL) 
         { 
-            printf( "%s file failed to open.\n",fname ) ; 
-            perror("Couldn't open file");
+            perror("File cnt be opened");
         } 
         else
         { 
-            printf("The file is now opened.\n") ; 
-            fgets( dataToBeRead, 50, fp ); 
+            fgets( fileData, 50, fp ); 
         } 
         
         fclose(fp);
 
-        msg_snd=msg_rcv; 
-        strcpy(msg_snd.msg_text,dataToBeRead); 
-        //msg_snd.msg_type=1;
-        
-        printf("Sending: %s\n", msg_snd.msg_text); 
+        msg_snd = msg_rcv; 
+        strcpy(msg_snd.msg_text, fileData); 
+
         int client_id=msg_rcv.qid;
-        //printf("%d\n", client_id);
         
-        if(msgsnd(client_id, &msg_snd, sizeof(struct msg_buffer),0)==-1)
+        if(msgsnd(client_id, &msg_snd, sizeof(struct msg_buffer), 0) == -1)
         {
             perror("msgsnd");
             exit(1);
         }
-
-        printf("Sent\n");
+        // printf("Sent fine data");
     }
-
-
 
 }
