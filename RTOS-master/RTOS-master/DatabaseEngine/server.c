@@ -23,7 +23,7 @@ int main()
 
     char fileData[1024];
     
-    key = ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65);
+    key = ftok("../EchoEngine/server.c", 65);
 
     if(key == -1)
     {
