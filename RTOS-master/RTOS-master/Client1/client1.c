@@ -24,7 +24,7 @@ int main()
 
 	snd = ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65); 
 	
-	rcv = ftok("client0",'0'); 
+	rcv = ftok("client1",'0'); 
 
 	int myid,sqid;
 
