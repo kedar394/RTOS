@@ -19,7 +19,7 @@ int main()
     key_t key;
     int id;
     
-    key = ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65);
+    key = ftok("server.c", 65);
     if(key == -1)
     {
         perror("ftok");
