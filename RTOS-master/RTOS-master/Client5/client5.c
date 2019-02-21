@@ -22,7 +22,7 @@ int main()
 
     key_t snd,rcv; 
 
-    snd = ftok("/home/kedar/iiitb/sem8/RTOS-master/RTOS-master/EchoEngine/server.c", 65); 
+    snd = ftok("../EchoEngine/server.c", 65); 
     
     rcv = ftok("client5",'5'); 
 
