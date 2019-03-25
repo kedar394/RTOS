@@ -20,7 +20,7 @@ void toClient(int sid)
     { 
         memset(buffer, 0, 80); 
 
-        read(sid, buffer, sizeof(buffer)); 
+        read(sid, buffer, sizeof(buffer));   // for next set of data
         for(int i = 0; i < 5; i++)
         {
     		sprintf(filename, "./sensor_data/sensor%d.txt", i+1);
