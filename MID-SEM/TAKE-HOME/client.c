@@ -32,7 +32,7 @@ void receive(int sid)
     int n; 
     while(1)
     { 
-        write(sid, buffer, sizeof(buffer)); 
+        write(sid, buffer, sizeof(buffer));  //for next set of data
         
         memset(msg, 0, sizeof(msg)); 
         
