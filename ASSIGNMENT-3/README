@@ -1,0 +1,3 @@
+The biggest issue faced was trying to fugure out why the audio was not being recorded and echoed back even after the server and client were connected through the socket and were ready to listen and send the required audio data.
+The solution to that was to run the same code on a different machine and check if the audio was being recorded and echoed back over there. Once it was confirmed that the audio was indeed working correctly, it was clear that the issue was with the audio drivers on the first machine and not with the code.
+So it is necessary to test the code on a machine that has the required drivers installed.
