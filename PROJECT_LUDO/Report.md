@@ -53,7 +53,7 @@ where '-1' implies that the pawns are still at home </br></br>
 
 
 ## Source Code
-[Project Link](https://github.com/Juhi-0711/RTOS/tree/master/PROJECT_LUDO)
+[Project Link](https://github.com/kedar394/RTOS/tree/master/PROJECT_LUDO)
 
 
 
